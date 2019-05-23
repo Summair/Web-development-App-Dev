@@ -1,0 +1,141 @@
+<!--M.Brohi 
+javascript inline for images expanding in same browser-->
+
+
+<!DOCTYPE html>
+<head>
+<title> Overlay Images Example Using In-line JScript </title>
+
+
+<style>
+img
+(
+
+	padding: 5px;
+}
+
+#outer
+{
+	width:100%; height:100%;
+}
+
+.overlay
+{
+		background-color: #000;
+		opacity: .7;
+		filter: alpha(opacity=70);
+		position: fixed; top: 0; left: 0;
+		width: 100%; height:100%
+		z-index: 10;
+}
+.overlaying
+{
+	position: absolute;
+	z-index:11;
+	left:50px;
+	top:50px;
+}
+</style>
+<script>	
+
+function expandPhoto() {
+
+	var overlay = document.createElement("div");
+	overlay.setAttribute("id", "overlay");
+	overlay.setAttribute("class", "overlay");
+	document.body.appendChild(overlay);
+	
+	var img = document.createElement("img");
+	img.setAttribute("id","img");
+	img.src = this.getAttribute("data-larger");
+	img.setAttribute("class","overlaying");
+	
+	img.onclick=restore;
+	
+	document.body.appendChild(img);
+	
+}
+
+function restore() {
+	
+	document.body.removeChild(document.getElementById("overlay"));
+	document.body.removeChild(document.getElementById("img"));
+}
+
+window.onload=function() {
+			
+	var imgs = document.getElementsByTagName("img");
+	imgs[0].focus();
+	for(var i = 0; i < imgs.length; i++) {
+	  imgs[i].onclick=expandPhoto
+	  imgs[i].onkeydown=expandPhoto; 
+	}
+}
+
+
+</script>
+
+</head>
+
+<body>
+
+<div id="outer">
+
+				<h1><b> Click with your mouse on the image to expand the photo.<i> Don't forget to close expanded photo, mouse click on image.</i></b></h1>
+				
+				<img src="image1.thumb.jpg" data-larger="image1.jpg" alt="image of a balcony somewhere in a real nice place on this planet" />
+				
+				<img src="image2.thumb.jpg" data-larger="image2.jpg" alt="image of a Cathedral ceiling " />
+	
+				<img src="image3.thumb.jpg" data-larger="image3.jpg" alt="image of a beach, taken from above" />
+				
+				<img src="image4.thumb.jpg" data-larger="image4.jpg" alt="image of Sea shells in sand" />
+	
+				<img src="image5.thumb.jpg" data-larger="image5.jpg" alt="image of an Eclipse" />
+				
+				
+</div>
+</body>	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

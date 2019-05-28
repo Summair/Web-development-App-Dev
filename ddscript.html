@@ -1,0 +1,140 @@
+<!--- HTML5 Drag and drop feature ---->
+
+<!DOCTYPE html>
+<head>
+<title> HTML Drag and drop Selections in a box </title>
+
+<style>
+
+#drop
+{ 
+	width:300px;
+	height: 200px;
+	background-color: #ff0000;
+	padding: 5px;
+	border: 2px solid #0000;
+}
+
+#item
+{
+	width: 100px;
+	height: 100px;
+	background-color: #ffff00;
+	padding: 5px;
+	margin: 20px;
+	border: 1px dashed #000000;
+}
+
+*[draggable=true] {
+	-moz-user-select:none;
+	-khtml-user-drag: element;
+	cursor: move;
+}
+
+*:-khtml-drag {
+		background-color: rgba(238,238,238,0.5);
+}
+</style>
+
+<script>
+
+
+function listenEvent(eventTrarget, eventType, eventHandler) {
+   if (eventTarget.addEventListener) {
+	  eventTarget.addEventListener(eventType, eventHandler, false);
+   }else if (eventTarget.attachEvent) {
+	 eventType = "on" + eventType;
+	 eventTarget.attachEvent(eventType, eventHandler);
+   }else {
+	  eventTarget["on" +eventType] = eventHandler;
+   }
+} 
+// on cancel eventHandler
+
+function cancelEvent(event) {
+	if(event.preventDefault) {
+	  event.preventDefault();
+	} else {
+	   event.returnValue = false;
+	}
+}
+	
+//on Cancel propagation
+
+function cancelPropagation (event) {
+   if (event.stopPropagation) {
+	  event.stopPropagation();
+    }else {
+	  event.cancelBubble = true;
+	 }
+}
+
+window.onload=function() {
+   var target = document.getElementbyId("drop");
+   listenEvent(target, "dragenter",cancelEvent);
+   listenEvent(target, "dragover", dragOver);
+   listenEvent(target,"drop",function (evt) {
+	
+			cancelPropagation(evt);
+			evt = evt || window.event;
+			evt.dataTransfer.dropEffect = 'copy';
+			var id = evt.dataTransfer.getData("Text");
+			target.appendChild(document.getElementbyId(id));
+			});
+	
+	var item = document.getElementbyId("item");
+	item.setAttribute("draggable", "true");
+	listenEvent(item, "dragstart", function(evt) {
+				evt = evt || window.event;
+				evt.dataTransfer.effectAllowed = 'copy';
+				evt.dataTransfer.setData("Text",item.id);
+				});
+		
+};		
+	
+
+function dragOver(evt) {
+  if (evt.preventDefault) evt.preventDefault();
+  evt = evt || window.event;
+  evt.dataTransfer.dropEffect = 'copy' ;
+  return false;
+}
+
+</script>
+</head>
+<body>
+<div>
+
+
+<p> Drag the small yellow box with the dash border to the larger red box with the solid border </p>
+
+</div>
+
+<div id="item" draggable="true">
+
+</div>
+
+<div id="drop">
+</div>
+</body>
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
